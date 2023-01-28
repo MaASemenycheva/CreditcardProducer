@@ -5,6 +5,8 @@ import org.apache.kafka.clients.producer.*;
 import com.google.gson.*;
 import com.typesafe.config.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -34,16 +36,10 @@ interface PublishJsonMsgInterface {
 
 
 public class TransactionProducer {
-
-    static Config applicationConf;
-
+    static Config applicationConf = ConfigFactory.parseResources("application-local.conf");
     // set producer properties
     static Properties props = new Properties();
-    static String topic =  props.getProperty("com.iot.app.kafka.topic");
-
-    static KafkaProducer<String, String> producer = new KafkaProducer<String, String>((Map<String, Object>) new ProducerConfig(props));
-
-
+    static String topic;
     static void load() {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, applicationConf.getString("kafka.bootstrap.servers"));
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, applicationConf.getString("kafka.key.serializer"));
@@ -68,10 +64,16 @@ public class TransactionProducer {
 
 
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
+        String path = args[0];
+        Config applicationConf = ConfigFactory.parseFile(new File(path));
+        load();
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
+        String file = applicationConf.getString("kafka.producer.file");
+
 
         GetCsvIteratorInterface getCsvIterator = (fileName) -> {
-            File file = new File(fileName);
-            CSVParser csvParser = CSVParser.parse(file, Charset.forName("UTF-8"), CSVFormat.DEFAULT);
+            File files = new File(fileName);
+            CSVParser csvParser = CSVParser.parse(files, Charset.forName("UTF-8"), CSVFormat.DEFAULT);
             return csvParser.iterator();
         };
 
@@ -112,13 +114,13 @@ public class TransactionProducer {
                 producer.send(producerRecord, new MyProducerCallback()); /*Asynchrounous Produer */
                 Thread.sleep(rand.nextInt(3000 - 1000) + 1000);
             }
-         };
+        };
 
-        String path = args[0];
-        Config applicationConf = ConfigFactory.parseFile(new File(path));
-        load();
-        producer = new KafkaProducer<String, String>(props);
-        String file = applicationConf.getString("kafka.producer.file");
+
+
+
+
+
         publishJsonMsg.publishJsonMsg(file);
     }
 }
