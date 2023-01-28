@@ -90,7 +90,6 @@ public class TransactionProducer {
                 Date d = new Date();
                 String timestamp = isoFormat.format(d);
                 Long unix_time = d.getTime();
-
                 obj.addProperty(TransactionKafkaData.cc_num, record.get(0));
                 obj.addProperty(TransactionKafkaData.first, record.get(1));
                 obj.addProperty(TransactionKafkaData.last, record.get(2));
