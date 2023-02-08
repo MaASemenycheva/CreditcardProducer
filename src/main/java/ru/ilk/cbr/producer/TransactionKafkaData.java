@@ -11,26 +11,28 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class TransactionKafkaData implements Serializable{
 
-    public static String cc_num;
-    public static String first;
-    public static String last;
-    public static String trans_num;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
-    public static Date trans_date;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
-    public static Date trans_time;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
-    public static Date unix_time;
-    public static String category;
-    public static String merchant;
-    public static Double amt;
-    public static Double merch_lat;
-    public static Double merch_long;
-    public static Double distance;
-    public static Integer age;
-    public static String is_fraud;
-    public static String kafka_partition;
-    public static String kafka_offset;
+    public static String cc_num = "cc_num";
+    public static String first = "first";
+    public static String last = "last";
+    public static String trans_num = "trans_num";
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
+//    public static Date trans_date;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
+//    public static Date trans_time;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="MST")
+    public static String trans_time = "trans_time";
+    public static String trans_date = "trans_date";
+    public static String unix_time = "unix_time";
+    public static String category = "category";
+    public static String merchant = "merchant";
+    public static String amt = "amt";
+    public static String merch_lat = "merch_lat";
+    public static String merch_long = "merch_long";
+    public static String distance = "distance";
+    public static String age = "age";
+    public static String is_fraud = "is_fraud";
+    public static String kafka_partition = "kafka_partition";
+    public static String kafka_offset = "kafka_offset";
 
 
     public TransactionKafkaData(){
@@ -41,16 +43,16 @@ public class TransactionKafkaData implements Serializable{
                                 String first,
                                 String last,
                                 String trans_num,
-                                Date trans_date,
-                                Date trans_time,
-                                Date unix_time,
+                                String trans_date,
+                                String trans_time,
+                                String unix_time,
                                 String category,
                                 String merchant,
-                                Double amt,
-                                Double merch_lat,
-                                Double merch_long,
-                                Double distance,
-                                Integer age,
+                                String amt,
+                                String merch_lat,
+                                String merch_long,
+                                String distance,
+                                String age,
                                 String is_fraud,
                                 String kafka_partition,
                                 String kafka_offset) {
@@ -90,20 +92,19 @@ public class TransactionKafkaData implements Serializable{
         return trans_num;
     }
 
-    public Date getTrans_date() {
+    public String getTrans_date() {
         return trans_date;
     }
 
-    public Date getTrans_time() {
+    public String getTrans_time() {
         return trans_time;
     }
 
-    public Date getUnix_time() {
+    public String getUnix_time() {
         return unix_time;
     }
 
     public String getCategory() {
-
         return category;
     }
 
@@ -111,23 +112,23 @@ public class TransactionKafkaData implements Serializable{
         return merchant;
     }
 
-    public Double getAmt() {
+    public String getAmt() {
         return amt;
     }
 
-    public Double getMerch_lat() {
+    public String getMerch_lat() {
         return merch_lat;
     }
 
-    public Double getMerch_long() {
+    public String getMerch_long() {
         return merch_long;
     }
 
-    public Double getDistance() {
+    public String getDistance() {
         return distance;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
