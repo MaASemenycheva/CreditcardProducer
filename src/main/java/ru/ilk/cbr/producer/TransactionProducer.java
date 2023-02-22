@@ -103,14 +103,14 @@ public class TransactionProducer {
                 obj.addProperty(String.valueOf(TransactionKafkaData.merch_long), record.get(11));
                 String json = gson.toJson(obj);
                 System.out.println("Transaction Record: " + json);
-//                ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, json); //Round Robin Partitioner
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, json); //Round Robin Partitioner
 
 
 //                ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, json.hashCode().toString(), json); //Hash Partitioner
 //                ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, 1, json.hashCode().toString(), json); //Specific Partition
 //                producer.send(producerRecord); //Fire and Forget
 //                producer.send(producerRecord).get(); /*Synchronous Producer */
-//                producer.send(producerRecord, new MyProducerCallback()); /*Asynchrounous Produer */
+                producer.send(producerRecord, new MyProducerCallback()); /*Asynchrounous Produer */
                 Thread.sleep(rand.nextInt(3000 - 1000) + 1000);
             }
         };
